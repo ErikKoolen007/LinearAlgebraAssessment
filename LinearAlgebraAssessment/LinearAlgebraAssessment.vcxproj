@@ -117,10 +117,14 @@
   <ItemGroup>
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math_class.cpp" />
+    <ClCompile Include="space_ship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="math_class.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="space_ship.h" />
     <ClInclude Include="vector_3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

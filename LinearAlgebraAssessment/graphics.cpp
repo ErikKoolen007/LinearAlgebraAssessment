@@ -40,7 +40,7 @@ void graphics::draw_vector(vector_3d<float>& vector, float start_x, float start_
 	const int starting_y = start_y == 0 ? center_y_ : center_y_ - start_y * step_;
 
 	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawLine(renderer_, starting_x, starting_y, starting_x + vector.get_x() * step_, starting_y - vector.get_y() * step_);
+	SDL_RenderDrawLine(renderer_, starting_x, starting_y, starting_x + vector.x() * step_, starting_y - vector.y() * step_);
 }
 
 void graphics::draw_matrix_front(matrix<float> m, SDL_Rect& viewport) const
@@ -116,5 +116,5 @@ void graphics::draw_point(vector_3d<float>& vector) const
 {
 	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
 
-	SDL_RenderDrawPoint(renderer_, center_x_ + vector.get_x() * step_, center_y_ - vector.get_y() * step_);
+	SDL_RenderDrawPoint(renderer_, center_x_ + vector.x() * step_, center_y_ - vector.y() * step_);
 }

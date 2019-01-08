@@ -10,8 +10,9 @@ template<typename T> class matrix
 	unsigned cols_;
 
 public:
+	matrix() = default;
 	matrix(unsigned rows, unsigned cols);
-	explicit matrix(const std::vector<vector_3d<T>>& position_vectors);
+	void init_with_position_vectors(const std::vector<vector_3d<T>>& position_vectors);
 
 	matrix<T> operator+(const matrix<T>& rhs_matrix);
 	matrix<T> operator-(const matrix<T>& rhs_matrix);
@@ -56,7 +57,7 @@ matrix<T>::matrix(unsigned rows, unsigned cols)
 }
 
 template <typename T>
-matrix<T>::matrix(const std::vector<vector_3d<T>>& position_vectors)
+void matrix<T>::init_with_position_vectors(const std::vector<vector_3d<T>>& position_vectors)
 {
 	this->mat_.resize(4);
 	this->rows_ = 4;
@@ -69,9 +70,9 @@ matrix<T>::matrix(const std::vector<vector_3d<T>>& position_vectors)
 
 	for (auto i = 0; i < position_vectors.size(); i++)
 	{
-		this->mat_[0][i] = position_vectors[i].get_x();
-		this->mat_[1][i] = position_vectors[i].get_y();
-		this->mat_[2][i] = position_vectors[i].get_z();;
+		this->mat_[0][i] = position_vectors[i].x();
+		this->mat_[1][i] = position_vectors[i].y();
+		this->mat_[2][i] = position_vectors[i].z();;
 		this->mat_[3][i] = 1;
 	}
 }

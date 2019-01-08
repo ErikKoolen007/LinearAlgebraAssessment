@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "graphics.h"
+#include "space_ship.h"
+#include "math_class.h"
 
 //undef (macro)main to be able to let the linker find the non SDL main.
 #undef main
@@ -54,30 +56,24 @@ void run()
 				graphics.draw_coordinate_grid(middle_viewport);
 				graphics.draw_coordinate_grid(right_viewport);
 
-				std::vector<vector_3d<float> > vectors;
-				vectors.emplace_back(1, 0, 0);
-				vectors.emplace_back(3, 0, 0);
-				vectors.emplace_back(3, 2, 0);
-				vectors.emplace_back(1, 2, 0);
-				vectors.emplace_back(1, 0, 1);
-				vectors.emplace_back(3, 0, 1);
-				vectors.emplace_back(3, 0, 0);
-				matrix<float> m{ vectors };
+				space_ship space_ship{};
+				vector_3d<float> centroid = math_class::centroid(space_ship.matrix());
+				std::cout << "x: " << centroid.x() << " y: " << centroid.y() << " z:" << centroid.z() << "\n";
 
-				graphics.draw_matrix_top(m, left_viewport);
-				graphics.draw_matrix_front(m, middle_viewport);
-				graphics.draw_matrix_side(m, right_viewport);
+				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
+				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
+				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);
 				//Scaling DEMO
-				/*m.translate_vector_matrix(-2, -1, -0.5).scale_vector_matrix(2, 2, 2).translate_vector_matrix(2, 1, 0.5);
-				graphics.draw_matrix_top(m, left_viewport);
-				graphics.draw_matrix_front(m, middle_viewport);
-				graphics.draw_matrix_side(m, right_viewport);*/
+				/*space_ship.line_matrix().scale_vector_matrix(2, 2, 2);
+				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
+				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
+				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);*/
 
 				//Rotation DEMO
-				/*m.translate_vector_matrix(-2, -1, -0.5).x_rotate_vector_matrix(90, true).translate_vector_matrix(2, 1, 0.5);
-				graphics.draw_matrix_top(m, left_viewport);
-				graphics.draw_matrix_front(m, middle_viewport);
-				graphics.draw_matrix_side(m, right_viewport);*/
+				math_class::rotate_x(space_ship.line_matrix(), 90, true, 0, 0, 0);
+				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
+				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
+				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);
 
 				//Update screen
 				SDL_RenderPresent(renderer);

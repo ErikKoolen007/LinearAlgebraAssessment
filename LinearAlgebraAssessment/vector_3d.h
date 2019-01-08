@@ -12,12 +12,12 @@ public:
 	{
 	}
 
-	T get_x() const;
-	T get_y() const;
-	T get_z() const;
-	void set_x(T x);
-	void set_y(T y);
-	void set_z(T z);
+	T x() const;
+	T y() const;
+	T z() const;
+	void x(T x);
+	void y(T y);
+	void z(T z);
 	void set(T x, T y, T z);
 
 	vector_3d<T> operator+(const vector_3d<T>& other);
@@ -31,37 +31,37 @@ public:
 };
 
 template <typename T>
-T vector_3d<T>::get_x() const
+T vector_3d<T>::x() const
 {
 	return x_;
 }
 
 template <typename T>
-T vector_3d<T>::get_y() const
+T vector_3d<T>::y() const
 {
 	return y_;
 }
 
 template <typename T>
-T vector_3d<T>::get_z() const
+T vector_3d<T>::z() const
 {
 	return z_;
 }
 
 template <typename T>
-void vector_3d<T>::set_x(T x)
+void vector_3d<T>::x(T x)
 {
 	x_ = x;
 }
 
 template <typename T>
-void vector_3d<T>::set_y(T y)
+void vector_3d<T>::y(T y)
 {
 	y_ = y;
 }
 
 template <typename T>
-void vector_3d<T>::set_z(T z)
+void vector_3d<T>::z(T z)
 {
 	z_ = z;
 }
