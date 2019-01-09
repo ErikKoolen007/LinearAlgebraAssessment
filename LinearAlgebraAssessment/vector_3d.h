@@ -12,13 +12,12 @@ public:
 	{
 	}
 
-	T x() const;
-	T y() const;
-	T z() const;
-	void x(T x);
-	void y(T y);
-	void z(T z);
-	void set(T x, T y, T z);
+	T x() const { return x_; }
+	T y() const { return y_; }
+	T z() const { return z_; }
+	void x(T x) { x_ = x; }
+	void y(T y) { y_ = y; }
+	void z(T z) { z_ = z; }
 
 	vector_3d<T> operator+(const vector_3d<T>& other);
 	vector_3d<T>& operator+=(const vector_3d<T>& other);
@@ -29,50 +28,6 @@ public:
 	vector_3d<T> operator*(const T& scalar);
 	vector_3d<T>& operator*=(const T& scalar);
 };
-
-template <typename T>
-T vector_3d<T>::x() const
-{
-	return x_;
-}
-
-template <typename T>
-T vector_3d<T>::y() const
-{
-	return y_;
-}
-
-template <typename T>
-T vector_3d<T>::z() const
-{
-	return z_;
-}
-
-template <typename T>
-void vector_3d<T>::x(T x)
-{
-	x_ = x;
-}
-
-template <typename T>
-void vector_3d<T>::y(T y)
-{
-	y_ = y;
-}
-
-template <typename T>
-void vector_3d<T>::z(T z)
-{
-	z_ = z;
-}
-
-template <typename T>
-void vector_3d<T>::set(T x, T y, T z)
-{
-	x_ = x;
-	y_ = y;
-	z_ = z;
-}
 
 template <typename T>
 vector_3d<T> vector_3d<T>::operator+(const vector_3d<T>& other)

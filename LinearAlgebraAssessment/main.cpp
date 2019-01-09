@@ -64,6 +64,10 @@ void run()
 				space_ship.roll(5);
 				math_class::scale(2, 2, 2, space_ship.line_matrix());
 
+				vector_3d<float> a{ 1.0f,1,1 };
+				vector_3d<float> b{ 2.2f,2,2 };
+				std::cout << dot(a, b);
+
 				//Draw space ship
 				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
 				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);

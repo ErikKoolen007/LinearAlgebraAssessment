@@ -13,5 +13,12 @@ public:
 	static void rotate_z(matrix<float>& m, float degrees, float pitch, float yaw);
 	static void scale(float x_factor, float y_factor, float z_factor, matrix<float>& m);
 	static void translate(float x_factor, float y_factor, float z_factor, matrix<float>& m);
+
+	
 };
 
+template <typename Scalar>
+constexpr Scalar dot(vector_3d<Scalar> a, vector_3d<Scalar> b)
+{
+	return a.x() * b.x() + a.y() * b.y() + a.z() * b.z();
+}
