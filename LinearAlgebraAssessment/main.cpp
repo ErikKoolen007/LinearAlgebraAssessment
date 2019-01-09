@@ -56,21 +56,15 @@ void run()
 				graphics.draw_coordinate_grid(middle_viewport);
 				graphics.draw_coordinate_grid(right_viewport);
 
+				//Create space ship and translate, rotate and scale it
 				space_ship space_ship{};
-				vector_3d<float> centroid = math_class::centroid(space_ship.matrix());
-				std::cout << "x: " << centroid.x() << " y: " << centroid.y() << " z:" << centroid.z() << "\n";
+				math_class::translate(0, 2, -2, space_ship.line_matrix());
+				space_ship.pitch(5);
+				space_ship.pitch(-10);
+				space_ship.roll(5);
+				math_class::scale(2, 2, 2, space_ship.line_matrix());
 
-				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
-				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
-				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);
-				//Scaling DEMO
-				/*space_ship.line_matrix().scale_vector_matrix(2, 2, 2);
-				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
-				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
-				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);*/
-
-				//Rotation DEMO
-				math_class::rotate_x(space_ship.line_matrix(), 90, true, 0, 0, 0);
+				//Draw space ship
 				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
 				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
 				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);

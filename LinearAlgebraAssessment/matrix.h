@@ -31,15 +31,10 @@ public:
 
 	static matrix<T> get_translation_matrix(const T& x, const T& y, const T& z);
 	static matrix<T> get_scaling_matrix(const T& x, const T& y, const T& z);
-	static matrix<T> get_rotation_matrix_x(const T& degrees, bool rotation_positive);
-	static matrix<T> get_rotation_matrix_y(const T& degrees, bool rotation_positive);
-	static matrix<T> get_rotation_matrix_z(const T& degrees, bool rotation_positive);
+	static matrix<T> get_rotation_matrix_x(const T& degrees);
+	static matrix<T> get_rotation_matrix_y(const T& degrees);
+	static matrix<T> get_rotation_matrix_z(const T& degrees);
 
-	matrix<T>& translate_vector_matrix(const T& x, const T& y, const T& z);
-	matrix<T>& scale_vector_matrix(const T& x, const T& y, const T& z);
-	matrix<T>& x_rotate_vector_matrix(const T& degrees, bool rotation_positive);
-	matrix<T>& y_rotate_vector_matrix(const T& degrees, bool rotation_positive);
-	matrix<T>& z_rotate_vector_matrix(const T& degrees, bool rotation_positive);
 	void debug_draw();
 	static double convert_degrees_to_radian(const T& degrees);
 };
@@ -227,12 +222,12 @@ matrix<T> matrix<T>::get_scaling_matrix(const T& x, const T& y, const T& z)
 }
 
 template <typename T>
-matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees, bool rotation_positive)
+matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees)
 {
-	const double radian = convert_degrees_to_radian(degrees);
+	double radian = convert_degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
-	if (rotation_positive) {
+	if (degrees >= 0) {
 		rotation_matrix(0, 0) = 1;
 		rotation_matrix(1, 1) = std::cos(radian);
 		rotation_matrix(1, 2) = -std::sin(radian);
@@ -243,6 +238,7 @@ matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees, bool rotation_posit
 		return rotation_matrix;
 	}
 
+	radian = radian * -1;
 	rotation_matrix(0, 0) = 1;
 	rotation_matrix(1, 1) = std::cos(radian);
 	rotation_matrix(1, 2) = std::sin(radian);
@@ -254,12 +250,12 @@ matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees, bool rotation_posit
 }
 
 template <typename T>
-matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees, bool rotation_positive)
+matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees)
 {
-	const double radian = convert_degrees_to_radian(degrees);
+	double radian = convert_degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
-	if (rotation_positive) {
+	if (degrees >= 0) {
 		rotation_matrix(0, 0) = std::cos(radian);
 		rotation_matrix(0, 2) = std::sin(radian);
 		rotation_matrix(1, 1) = 1;
@@ -270,6 +266,7 @@ matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees, bool rotation_posit
 		return rotation_matrix;
 	}
 
+	radian = radian * -1;
 	rotation_matrix(0, 0) = std::cos(radian);
 	rotation_matrix(0, 2) = -std::sin(radian);
 	rotation_matrix(1, 1) = 1;
@@ -281,12 +278,12 @@ matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees, bool rotation_posit
 }
 
 template <typename T>
-matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees, bool rotation_positive)
+matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees)
 {
-	const double radian = convert_degrees_to_radian(degrees);
+	double radian = convert_degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
-	if (rotation_positive) {
+	if (degrees >= 0) {
 		rotation_matrix(0, 0) = std::cos(radian);
 		rotation_matrix(0, 1) = -std::sin(radian);
 		rotation_matrix(1, 0) = std::sin(radian);
@@ -297,6 +294,7 @@ matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees, bool rotation_posit
 		return rotation_matrix;
 	}
 
+	radian = radian * -1;
 	rotation_matrix(0, 0) = std::cos(radian);
 	rotation_matrix(0, 1) = std::sin(radian);
 	rotation_matrix(1, 0) = -std::sin(radian);
@@ -305,61 +303,6 @@ matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees, bool rotation_posit
 	rotation_matrix(3, 3) = 1;
 
 	return rotation_matrix;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::translate_vector_matrix(const T& x, const T& y, const T& z)
-{
-	matrix translation_matrix = get_translation_matrix(x, y, z);
-
-	translation_matrix *= (*this);
-	*this = translation_matrix;
-
-	return *this;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::scale_vector_matrix(const T& x, const T& y, const T& z)
-{
-	matrix scaling_matrix = get_scaling_matrix(x, y, z);
-
-	scaling_matrix *= (*this);
-	*this = scaling_matrix;
-
-	return *this;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::x_rotate_vector_matrix(const T& degrees, bool rotation_positive)
-{
-	matrix rotation_matrix = get_rotation_matrix_x(degrees, rotation_positive);
-
-	rotation_matrix *= (*this);
-	*this = rotation_matrix;
-
-	return *this;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::y_rotate_vector_matrix(const T& degrees, bool rotation_positive)
-{
-	matrix rotation_matrix = get_rotation_matrix_y(degrees, rotation_positive);
-
-	rotation_matrix *= (*this);
-	*this = rotation_matrix;
-
-	return *this;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::z_rotate_vector_matrix(const T& degrees, bool rotation_positive)
-{
-	matrix rotation_matrix = get_rotation_matrix_z(degrees, rotation_positive);
-
-	rotation_matrix *= (*this);
-	*this = rotation_matrix;
-
-	return *this;
 }
 
 template <typename T>

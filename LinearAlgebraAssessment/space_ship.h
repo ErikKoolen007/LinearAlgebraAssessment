@@ -32,5 +32,11 @@ public:
 
 	//Used for centroid calculation (no duplicate points)
 	matrix<float>& matrix() { return matrix_; }
+
+	void pitch(float degrees);
+	void yaw(float degrees);
+	void roll(float degrees);
+
+	static void add_degrees(float& action, float degrees);
 };
 

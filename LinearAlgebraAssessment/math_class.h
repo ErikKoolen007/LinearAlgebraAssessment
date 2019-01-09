@@ -8,9 +8,10 @@ class math_class
 public:
 
 	static vector_3d<float> centroid(const matrix<float>& matrix);
-	static void rotate_x(matrix<float>& m, float degrees, bool clockwise, float pitch, float yaw, float roll);
-	static void rotate_y(matrix<float>& m, float degrees, bool clockwise, float pitch, float yaw, float roll);
-	static void rotate_z(matrix<float>& m, float degrees, bool clockwise, float pitch, float yaw, float roll);
-	static void scale(float factor, matrix<float>& matrix);
+	static void rotate_x(matrix<float>& m, float degrees, float yaw, float roll);
+	static void rotate_y(matrix<float>& m, float degrees, float pitch, float roll);
+	static void rotate_z(matrix<float>& m, float degrees, float pitch, float yaw);
+	static void scale(float x_factor, float y_factor, float z_factor, matrix<float>& m);
+	static void translate(float x_factor, float y_factor, float z_factor, matrix<float>& m);
 };
 
