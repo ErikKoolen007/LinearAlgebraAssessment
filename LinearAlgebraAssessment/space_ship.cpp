@@ -3,19 +3,19 @@
 
 void space_ship::pitch(float degrees)
 {
-	math_class::rotate_x(line_matrix_, degrees, yaw_, roll_);
+	math_class::rotate_x(matrix_, degrees, yaw_, roll_);
 	add_degrees(pitch_, degrees);
 }
 
 void space_ship::yaw(float degrees)
 {
-	math_class::rotate_y(line_matrix_, degrees, pitch_, roll_);
+	math_class::rotate_y(matrix_, degrees, pitch_, roll_);
 	add_degrees(yaw_, degrees);
 }
 
 void space_ship::roll(float degrees)
 {
-	math_class::rotate_z(line_matrix_, degrees, pitch_, yaw_);
+	math_class::rotate_z(matrix_, degrees, pitch_, yaw_);
 	add_degrees(roll_, degrees);
 }
 

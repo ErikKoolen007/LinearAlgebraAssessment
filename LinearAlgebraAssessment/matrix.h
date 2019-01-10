@@ -3,6 +3,8 @@
 #include <iostream>
 #include <complex>
 
+class math_class;
+
 template<typename T> class matrix
 {
 	std::vector<std::vector<T> > mat_;
@@ -35,8 +37,8 @@ public:
 	static matrix<T> get_rotation_matrix_y(const T& degrees);
 	static matrix<T> get_rotation_matrix_z(const T& degrees);
 
+	std::vector<vector_3d<T>> get_vectors();
 	void debug_draw();
-	static double convert_degrees_to_radian(const T& degrees);
 };
 
 template <typename T>
@@ -224,7 +226,7 @@ matrix<T> matrix<T>::get_scaling_matrix(const T& x, const T& y, const T& z)
 template <typename T>
 matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees)
 {
-	double radian = convert_degrees_to_radian(degrees);
+	double radian = math_class::degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
 	if (degrees >= 0) {
@@ -252,7 +254,7 @@ matrix<T> matrix<T>::get_rotation_matrix_x(const T& degrees)
 template <typename T>
 matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees)
 {
-	double radian = convert_degrees_to_radian(degrees);
+	double radian = math_class::degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
 	if (degrees >= 0) {
@@ -280,7 +282,7 @@ matrix<T> matrix<T>::get_rotation_matrix_y(const T& degrees)
 template <typename T>
 matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees)
 {
-	double radian = convert_degrees_to_radian(degrees);
+	double radian = math_class::degrees_to_radian(degrees);
 
 	matrix rotation_matrix(4, 4);
 	if (degrees >= 0) {
@@ -306,6 +308,22 @@ matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees)
 }
 
 template <typename T>
+std::vector<vector_3d<T>> matrix<T>::get_vectors()
+{
+	std::vector<vector_3d<T>> v;
+	for (unsigned i = 0; i < cols_; i++)
+	{
+		T x = this->mat_[0][i];
+		T y = this->mat_[1][i];
+		T z = this->mat_[2][i];
+
+		v.emplace_back(x, y, z);
+	}
+
+	return v;
+}
+
+template <typename T>
 void matrix<T>::debug_draw()
 {
 	for (unsigned i = 0; i < rows_; i++) {
@@ -314,13 +332,5 @@ void matrix<T>::debug_draw()
 		}
 		std::cout << std::endl;
 	}
-}
-
-template <typename T>
-double matrix<T>::convert_degrees_to_radian(const T& degrees)
-{
-	const double pi = 3.14159265358979323846;
-	
-	return (degrees * pi) / 180;
 }
 

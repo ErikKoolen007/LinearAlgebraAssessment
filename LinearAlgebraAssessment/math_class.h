@@ -2,6 +2,8 @@
 #include "vector_3d.h"
 #include "matrix.h"
 
+constexpr double pi = 3.14159265358979323846;
+
 class math_class
 {
 	math_class() = default;
@@ -14,11 +16,15 @@ public:
 	static void scale(float x_factor, float y_factor, float z_factor, matrix<float>& m);
 	static void translate(float x_factor, float y_factor, float z_factor, matrix<float>& m);
 
-	
-};
+	template <typename T>
+	static constexpr double degrees_to_radian(const T& degrees)
+	{
+		return (degrees * pi) / 180;
+	}
 
-template <typename Scalar>
-constexpr Scalar dot(vector_3d<Scalar> a, vector_3d<Scalar> b)
-{
-	return a.x() * b.x() + a.y() * b.y() + a.z() * b.z();
-}
+	template <typename T>
+	static constexpr double radian_to_degrees(const T& radian)
+	{
+		return radian * 180.0 / pi;
+	}
+};

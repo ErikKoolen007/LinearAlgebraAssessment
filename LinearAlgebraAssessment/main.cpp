@@ -58,20 +58,32 @@ void run()
 
 				//Create space ship and translate, rotate and scale it
 				space_ship space_ship{};
-				math_class::translate(0, 2, -2, space_ship.line_matrix());
-				space_ship.pitch(5);
-				space_ship.pitch(-10);
-				space_ship.roll(5);
-				math_class::scale(2, 2, 2, space_ship.line_matrix());
+				math_class::translate(4, -2, -4, space_ship.matrix());
+				//space_ship.pitch(5);
+				//space_ship.pitch(40);
+				space_ship.roll(45);
+				space_ship.yaw(90);
+				//math_class::scale(2, 2, 2, space_ship.line_matrix());
 
-				vector_3d<float> a{ 1.0f,1,1 };
-				vector_3d<float> b{ 2.2f,2,2 };
-				std::cout << dot(a, b);
+				vector_3d<float> center_point = math_class::centroid(space_ship.matrix());
+				vector_3d<float> point_a = space_ship.matrix().get_vectors().at(0);
+				vector_3d<float> point_b = space_ship.matrix().get_vectors().at(space_ship.matrix().get_vectors().size() - 1);
+				vector_3d<float> vector_a = point_b - point_a;
+				vector_3d<float> point_c = space_ship.matrix().get_vectors().at(5);
+				vector_3d<float> vector_b = point_c - point_a;
+				vector_3d<float> vector_c = cross(vector_a, vector_b);
 
 				//Draw space ship
-				graphics.draw_matrix_top(space_ship.line_matrix(), left_viewport);
-				graphics.draw_matrix_front(space_ship.line_matrix(), middle_viewport);
-				graphics.draw_matrix_side(space_ship.line_matrix(), right_viewport);
+				graphics.draw_matrix_top(space_ship.matrix(), left_viewport);
+				graphics.draw_matrix_front(space_ship.matrix(), middle_viewport);
+				graphics.draw_vector(vector_c, center_point.x(), center_point.y());
+				graphics.draw_matrix_side(space_ship.matrix(), right_viewport);
+
+				float x = vector_c.x();
+				float z = vector_c.z();
+				vector_c.z(x);
+				vector_c.x(z);
+				graphics.draw_vector(vector_c, center_point.z(), center_point.y());
 
 				//Update screen
 				SDL_RenderPresent(renderer);
