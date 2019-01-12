@@ -1,9 +1,9 @@
 #pragma once
 #include "vector_3d.h"
 #include <vector>
-#include "matrix.h"
+#include "base_object.h"
 
-class space_ship
+class space_ship : public base_object
 {
 	float pitch_ = 0.0f;
 	float yaw_ = 0.0f;
@@ -12,16 +12,14 @@ class space_ship
 
 	static void add_degrees(float& action, float degrees);
 public:
-	space_ship()
+	space_ship(const std::vector<vector_3d<float>>& vector_draw_points)
 	{
-		const std::vector<vector_3d<float>> line_vectors
-		{
-			{-5,0,0},{-0.5,0,4},{0.5,0,4},{5,0,0},{-5,0,0},{-0.5,-1,0},{-0.5,0,4},{0.5,0,4},{0.5,-1,0},{5,0,0}
-		};
-		matrix_.init_with_position_vectors(line_vectors);
+		matrix_.init_with_position_vectors(vector_draw_points);
 	}
 
-	matrix<float>& matrix() { return matrix_; }
+	matrix<float>& get_matrix() override { return matrix_; }
+	void move(delta_time dt) override{}
+	void handle_event(SDL_Event& e) override{}
 
 	void pitch(float degrees);
 	void yaw(float degrees);

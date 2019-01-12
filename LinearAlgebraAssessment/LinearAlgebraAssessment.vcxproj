@@ -122,13 +122,18 @@
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math_class.cpp" />
+    <ClCompile Include="object_manager.cpp" />
     <ClCompile Include="space_ship.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base_object.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="clock.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="math_class.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="object_manager.h" />
+    <ClInclude Include="space_rock.h" />
     <ClInclude Include="space_ship.h" />
     <ClInclude Include="vector_3d.h" />
   </ItemGroup>

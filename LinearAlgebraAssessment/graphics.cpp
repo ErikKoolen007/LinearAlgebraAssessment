@@ -119,7 +119,7 @@ void graphics::draw_point(vector_3d<float>& vector) const
 	SDL_RenderDrawPoint(renderer_, center_x_ + vector.x() * step_, center_y_ - vector.y() * step_);
 }
 
-void graphics::draw_matrix(matrix<float>& m)
+void graphics::draw_matrix(matrix<float>& m) const
 {
 	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
 

@@ -3,6 +3,9 @@
 #include "graphics.h"
 #include "space_ship.h"
 #include "math_class.h"
+#include "space_rock.h"
+#include "object_manager.h"
+#include <algorithm>
 
 //undef (macro)main to be able to let the linker find the non SDL main.
 #undef main
@@ -26,6 +29,13 @@ void run()
 			SDL_Event event;
 			graphics graphics{ *renderer, screen_width, screen_height, screen_buffer, grid_size };
 			//graphics graphics{ *renderer, screen_width / screen_count, screen_height, screen_buffer, grid_size };
+
+			camera camera{ 0, 50, 50 };
+			object_manager object_manager{ };
+			object_manager.create_ship();
+			object_manager.create_space_rock(vector_3d<float>{10, 10, 10});
+			object_manager.create_space_rock(vector_3d<float>{20, 20, 20});
+			object_manager.create_space_rock(vector_3d<float>{-10, -10, 0});
 
 			while (!done) {
 
@@ -87,16 +97,26 @@ void run()
 				//vector_c.z(x);
 				//vector_c.x(z);
 				//graphics.draw_vector(vector_c, center_point.z(), center_point.y());
+				
+				
 
-				space_ship space_ship{};
+				
 				//space_ship.roll(45);
-				math_class::translate(0, 0, 0, space_ship.matrix());
-				vector_3d<float> center_point = math_class::centroid(space_ship.matrix());
-				camera camera{ 0, 50, 50 };
+				//math_class::translate(20, 20, 0, space_ship.get_matrix());
+				//vector_3d<float> center_point = math_class::centroid(space_ship.get_matrix());
+				
 				//camera.set_target(center_point);
-				math_class::convert_to_3d(space_ship.matrix(), camera, screen_width, screen_height);
+				//math_class::convert_to_3d(space_ship.get_matrix(), camera, screen_width, screen_height);
+				//math_class::convert_to_3d(space_rock.matrix(), camera, screen_width, screen_height);
+				//graphics.draw_matrix(space_ship.get_matrix());
+				//graphics.draw_matrix(space_rock.matrix());
 
-				graphics.draw_matrix(space_ship.matrix());
+				//Render objects
+				std::for_each(object_manager.get_objects().begin(), object_manager.get_objects().end(), [&](auto& object)
+				{
+					math_class::convert_to_3d(object->get_matrix(), camera, screen_width, screen_height);
+					graphics.draw_matrix(object->get_matrix());
+				});
 
 				//Update screen
 				SDL_RenderPresent(renderer);
