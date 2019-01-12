@@ -1,6 +1,7 @@
 #pragma once
 #include "vector_3d.h"
 #include "matrix.h"
+#include "camera.h"
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -15,6 +16,7 @@ public:
 	static void rotate_z(matrix<float>& m, float degrees, float pitch, float yaw);
 	static void scale(float x_factor, float y_factor, float z_factor, matrix<float>& m);
 	static void translate(float x_factor, float y_factor, float z_factor, matrix<float>& m);
+	static void convert_to_3d(matrix<float>& m, camera& c, float screen_width, float screen_height);
 
 	template <typename T>
 	static constexpr double degrees_to_radian(const T& degrees)

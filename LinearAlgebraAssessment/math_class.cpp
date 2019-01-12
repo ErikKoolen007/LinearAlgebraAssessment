@@ -98,3 +98,31 @@ void math_class::translate(float x_factor, float y_factor, float z_factor, matri
 	translation_matrix *= m;
 	m = translation_matrix;
 }
+
+void math_class::convert_to_3d(matrix<float>& m, camera& c, float screen_width, float screen_height)
+{
+	//Convert matrix with flat coords to 3d with camera matrix
+	matrix<float> camera_matrix = c.matrix();
+
+	//Set 3d converted matrix in perspective
+	matrix<float> projection_matrix = matrix<float>::get_perspective_matrix(0.1f, 100, 90);
+
+	matrix<float> mutation_matrix = projection_matrix * camera_matrix;
+	mutation_matrix *= m;
+	m = mutation_matrix;
+
+	//Correct the vectors
+	for (unsigned i = 0; i < m.get_cols(); i++)
+	{
+		const float x = m(0, i);
+		const float y = m(1, i);
+		const float z = m(2, i);
+		const float w = m(3, i);
+
+		m(0, i) = screen_width * (x / w + 1) / 2;
+		//m(0, i) = screen_width / 2 + (x + 1) / w * screen_width * 0.5;
+		m(1, i) = screen_height * (y / w + 1) / 2;
+		//m(1, i) = screen_height / 2 + (y + 1) / w * screen_height * 0.5;
+		m(2, i) = z * -1;
+	}
+}

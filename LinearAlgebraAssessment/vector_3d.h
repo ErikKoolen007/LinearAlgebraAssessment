@@ -104,3 +104,9 @@ constexpr vector_3d<Scalar> cross(vector_3d<Scalar> a, vector_3d<Scalar> b)
 
 	return vector_3d<Scalar>{x, y, z};
 }
+
+template <typename Scalar>
+constexpr vector_3d<Scalar> normalize(vector_3d<Scalar> v) {
+	auto length = vector_length(v);
+	return { v.x() / length, v.y() / length, v.z() / length };
+}

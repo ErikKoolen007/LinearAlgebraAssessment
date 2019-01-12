@@ -118,3 +118,21 @@ void graphics::draw_point(vector_3d<float>& vector) const
 
 	SDL_RenderDrawPoint(renderer_, center_x_ + vector.x() * step_, center_y_ - vector.y() * step_);
 }
+
+void graphics::draw_matrix(matrix<float>& m)
+{
+	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
+
+	for (unsigned i = 0; i < m.get_cols(); i++) {
+
+		if (i != 0)
+		{
+			const int previous_point_x = m(0, i - 1);
+			const int previous_point_y = m(1, i - 1);
+			const int current_point_x = m(0, i);
+			const int current_point_y = m(1, i);
+
+			SDL_RenderDrawLine(renderer_, previous_point_x, previous_point_y, current_point_x, current_point_y);
+		}
+	}
+}

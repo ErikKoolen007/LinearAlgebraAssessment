@@ -30,5 +30,6 @@ public:
 	void draw_matrix_top(matrix<float> m, SDL_Rect& viewport) const;
 	void draw_matrix_side(matrix<float> m, SDL_Rect& viewport) const;
 	void draw_point(vector_3d<float>& vector) const;
+	void draw_matrix(matrix<float>& m);
 };
 

@@ -8,8 +8,8 @@ class math_class;
 template<typename T> class matrix
 {
 	std::vector<std::vector<T> > mat_;
-	unsigned rows_;
-	unsigned cols_;
+	unsigned rows_{};
+	unsigned cols_{};
 
 public:
 	matrix() = default;
@@ -36,6 +36,7 @@ public:
 	static matrix<T> get_rotation_matrix_x(const T& degrees);
 	static matrix<T> get_rotation_matrix_y(const T& degrees);
 	static matrix<T> get_rotation_matrix_z(const T& degrees);
+	static matrix<T> get_perspective_matrix(const T& near, const T& far, const T& fov);
 
 	std::vector<vector_3d<T>> get_vectors();
 	void debug_draw();
@@ -65,7 +66,7 @@ void matrix<T>::init_with_position_vectors(const std::vector<vector_3d<T>>& posi
 		this->mat_[i].resize(position_vectors.size());
 	}
 
-	for (auto i = 0; i < position_vectors.size(); i++)
+	for (unsigned i = 0; i < position_vectors.size(); i++)
 	{
 		this->mat_[0][i] = position_vectors[i].x();
 		this->mat_[1][i] = position_vectors[i].y();
@@ -305,6 +306,22 @@ matrix<T> matrix<T>::get_rotation_matrix_z(const T& degrees)
 	rotation_matrix(3, 3) = 1;
 
 	return rotation_matrix;
+}
+
+template <typename T>
+matrix<T> matrix<T>::get_perspective_matrix(const T& near, const T& far, const T& fov)
+{
+	const double radian_fov = math_class::degrees_to_radian(fov);
+	float scale = near * std::tan(radian_fov * 0.5);
+
+	matrix perspective_matrix(4, 4);
+	perspective_matrix(0, 0) = scale;
+	perspective_matrix(1, 1) = scale;
+	perspective_matrix(2, 2) = -far / (far - near);
+	perspective_matrix(2, 3) = -1;
+	perspective_matrix(3, 2) = (-far * near) / (far - near);
+
+	return perspective_matrix;
 }
 
 template <typename T>
