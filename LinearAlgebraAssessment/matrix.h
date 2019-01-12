@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <complex>
+#include "vector_3d.h"
 
 class math_class;
 

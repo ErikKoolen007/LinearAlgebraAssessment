@@ -1,7 +1,7 @@
 #pragma once
-#include "vector_3d.h"
 #include <vector>
 #include "base_object.h"
+#include "vector_3d.h"
 
 class space_ship : public base_object
 {
@@ -18,7 +18,7 @@ public:
 	}
 
 	matrix<float>& get_matrix() override { return matrix_; }
-	void move(delta_time dt) override{}
+	void update(delta_time dt) override{}
 	void handle_event(SDL_Event& e) override{}
 
 	void pitch(float degrees);

@@ -1,5 +1,4 @@
 #pragma once
-#include "vector_3d.h"
 #include "base_object.h"
 
 class space_rock : public base_object
@@ -12,7 +11,7 @@ public:
 	}
 
 	matrix<float>& get_matrix() override { return matrix_; }
-	void move(delta_time dt) override{}
+	void update(delta_time dt) override{}
 	void handle_event(SDL_Event& e) override{}
 };
 
