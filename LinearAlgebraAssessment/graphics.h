@@ -19,5 +19,6 @@ public:
 	}
 
 	void draw_matrix(matrix<float>& m) const;
+	void draw_line(vector_3d<float> point_a, vector_3d<float> point_b) const;
 };
 

@@ -16,3 +16,9 @@ void graphics::draw_matrix(matrix<float>& m) const
 		}
 	}
 }
+
+void graphics::draw_line(vector_3d<float> point_a, vector_3d<float> point_b) const
+{
+	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawLine(renderer_, point_a.x(), point_a.y(), point_b.x(), point_b.y());
+}

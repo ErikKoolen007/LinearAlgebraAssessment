@@ -8,7 +8,7 @@
 class object_manager
 {
 	std::vector<std::unique_ptr<base_object>> objects_;
-	camera camera_{ 0, 50, 50 };
+	camera camera_{ 0, 0, -50 };
 	float screen_width_;
 	float screen_height_;
 	

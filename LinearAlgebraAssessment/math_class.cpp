@@ -124,5 +124,6 @@ void math_class::convert_to_3d(matrix<float>& m, camera& c, float screen_width, 
 		m(1, i) = screen_height * (y / w + 1) / 2;
 		//m(1, i) = screen_height / 2 + (y + 1) / w * screen_height * 0.5;
 		m(2, i) = z * -1;
+		m(3, i) = w / w;
 	}
 }

@@ -4,6 +4,8 @@
 #include "object_manager.h"
 #include <algorithm>
 #include "clock.h"
+#include "space_ship.h"
+#include "math_class.h"
 
 //undef (macro)main to be able to let the linker find the non SDL main.
 #undef main
@@ -52,20 +54,20 @@ void run()
 				//Clear screen
 				SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 				SDL_RenderClear(renderer);
-
-				//vector_3d<float> center_point = math_class::centroid(space_ship.matrix());
-				//vector_3d<float> point_a = space_ship.matrix().get_vectors().at(0);
-				//vector_3d<float> point_b = space_ship.matrix().get_vectors().at(space_ship.matrix().get_vectors().size() - 1);
-				//vector_3d<float> vector_a = point_b - point_a;
-				//vector_3d<float> point_c = space_ship.matrix().get_vectors().at(5);
-				//vector_3d<float> vector_b = point_c - point_a;
-				//vector_3d<float> vector_c = cross(vector_a, vector_b);
 				
 				//Render objects
 				std::for_each(object_manager.get_objects().begin(), object_manager.get_objects().end(), [&](auto& object)
 				{
 					graphics.draw_matrix(object->get_matrix());
 				});
+
+				auto sp = dynamic_cast<space_ship*>(object_manager.get_objects().at(0).get());
+				vector_3d<float> sp_center = math_class::centroid(sp->get_matrix());
+				vector_3d<float> sp_forward = sp->forward_vector();
+				sp_forward *= 1000;
+				vector_3d<float> end_point = sp_center + sp_forward;
+				graphics.draw_line(sp_center, end_point);
+				
 
 				//Update screen
 				SDL_RenderPresent(renderer);
