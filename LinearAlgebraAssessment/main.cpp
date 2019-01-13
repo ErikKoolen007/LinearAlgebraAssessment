@@ -16,20 +16,21 @@ void run()
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 
-		const float screen_width = 1920;
-		const float screen_height = 1080;
+		const double screen_width = 1920;
+		const double screen_height = 1080;
 
 		if (SDL_CreateWindowAndRenderer(static_cast<int>(screen_width), static_cast<int>(screen_height), 0, &window, &renderer) == 0) {
 			SDL_bool done = SDL_FALSE;
 			SDL_Event event;
-			graphics graphics{ *renderer, screen_width, screen_height };
 			timer::time_point t_prev = now();
 
 			object_manager object_manager{screen_width, screen_height};
 			object_manager.create_ship();
-			object_manager.create_space_rock(vector_3d<float>{10, 10, 10});
-			object_manager.create_space_rock(vector_3d<float>{20, 20, 20});
-			object_manager.create_space_rock(vector_3d<float>{-10, -10, 0});
+			object_manager.create_space_rock(vector_3d<double>{10, 10, 10});
+			object_manager.create_space_rock(vector_3d<double>{20, 20, 20});
+			object_manager.create_space_rock(vector_3d<double>{-10, -10, 10});
+
+			graphics graphics{ *renderer, object_manager.get_camera().get_matrix(), screen_width, screen_height };
 			
 			while (!done) {
 
@@ -61,13 +62,13 @@ void run()
 					graphics.draw_matrix(object->get_matrix());
 				});
 
+				//create hardcoded helpline
 				auto sp = dynamic_cast<space_ship*>(object_manager.get_objects().at(0).get());
-				vector_3d<float> sp_center = math_class::centroid(sp->get_matrix());
-				vector_3d<float> sp_forward = sp->forward_vector();
-				sp_forward *= 1000;
-				vector_3d<float> end_point = sp_center + sp_forward;
+				vector_3d<double> sp_center = math_class::centroid(sp->get_matrix());
+				vector_3d<double> sp_forward = sp->forward_vector();
+				sp_forward *= 10;
+				vector_3d<double> end_point = sp_center + sp_forward;
 				graphics.draw_line(sp_center, end_point);
-				
 
 				//Update screen
 				SDL_RenderPresent(renderer);

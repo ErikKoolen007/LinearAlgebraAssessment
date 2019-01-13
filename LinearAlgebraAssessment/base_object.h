@@ -14,7 +14,7 @@ public:
 	base_object &operator=(const base_object &) = delete;
 	base_object &operator=(base_object &&) = delete;
 
-	virtual matrix<float>& get_matrix() = 0;
+	virtual matrix<double>& get_matrix() = 0;
 	virtual void update(delta_time dt){}
 	virtual void handle_event(SDL_Event& e){}
 };

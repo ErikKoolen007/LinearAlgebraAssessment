@@ -6,19 +6,21 @@
 class graphics
 {
 	SDL_Renderer* renderer_;
-	float screen_width_;
-	float screen_height_;
-	float center_x_;
-	float center_y_;
+	matrix<double> camera_matrix_;
+	double screen_width_;
+	double screen_height_;
+	double center_x_;
+	double center_y_;
 public:
-	graphics(SDL_Renderer& renderer, float screen_width, float screen_height) : 
+	graphics(SDL_Renderer& renderer, matrix<double> camera_matrix, double screen_width, double screen_height) :
 		renderer_(&renderer), screen_width_(screen_width), screen_height_(screen_height)
 	{
+		camera_matrix_ = camera_matrix;
 		center_x_ = screen_width / 2;
 		center_y_ = screen_height / 2;
 	}
 
-	void draw_matrix(matrix<float>& m) const;
-	void draw_line(vector_3d<float> point_a, vector_3d<float> point_b) const;
+	void draw_matrix(const matrix<double>& m) const;
+	void draw_line(vector_3d<double> point_a, vector_3d<double> point_b) const;
 };
 

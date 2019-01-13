@@ -83,13 +83,13 @@ constexpr Scalar dot(vector_3d<Scalar> a, vector_3d<Scalar> b)
 }
 
 template <typename Scalar>
-constexpr float vector_length(vector_3d<Scalar> v)
+constexpr double vector_length(vector_3d<Scalar> v)
 {
 	return std::sqrt(std::pow(v.x(), 2) + std::pow(v.y(), 2) + std::pow(v.z(), 2));
 }
 
 template <typename Scalar>
-constexpr float angle(vector_3d<Scalar> a, vector_3d<Scalar> b)
+constexpr double angle(vector_3d<Scalar> a, vector_3d<Scalar> b)
 {
 	return std::acos(dot(a, b) / (vector_length(a) * vector_length(b)));
 }

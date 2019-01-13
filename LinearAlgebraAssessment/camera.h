@@ -5,19 +5,18 @@
 class camera
 {
 	//Eye
-	vector_3d<float> position_;
+	vector_3d<double> position_;
 	//lookat
-	vector_3d<float> target_;
-	matrix<float> matrix_;
+	vector_3d<double> target_;
 
 public:
-	camera(float x, float y, float z) : position_{ x,y,z }, matrix_(4, 4)
+	camera(double x, double y, double z) : position_{ x,y,z }
 	{
 	}
 
-	vector_3d<float>& position() { return position_; }
-	vector_3d<float>& target() { return target_; }
-	void set_target(const vector_3d<float>& target) { target_.x(target.x()); target_.y(target.y()); target_.z(target.z()); }
-	matrix<float> matrix();
+	vector_3d<double>& position() { return position_; }
+	vector_3d<double>& target() { return target_; }
+	void set_target(const vector_3d<double>& target) { target_.x(target.x()); target_.y(target.y()); target_.z(target.z()); }
+	matrix<double> get_matrix() const;
 };
 

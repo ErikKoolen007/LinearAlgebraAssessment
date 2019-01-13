@@ -313,7 +313,7 @@ template <typename T>
 matrix<T> matrix<T>::get_perspective_matrix(const T& near, const T& far, const T& fov)
 {
 	const double radian_fov = math_class::degrees_to_radian(fov);
-	float scale = near * std::tan(radian_fov * 0.5);
+	double scale = near * std::tan(radian_fov * 0.5);
 
 	matrix perspective_matrix(4, 4);
 	perspective_matrix(0, 0) = scale;

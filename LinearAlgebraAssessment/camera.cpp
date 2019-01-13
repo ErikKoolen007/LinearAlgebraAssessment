@@ -1,34 +1,38 @@
 #include "camera.h"
 
-matrix<float> camera::matrix()
+matrix<double> camera::get_matrix() const 
 {
-	vector_3d<float> direction = position_ - target_;
+	vector_3d<double> position = position_;
+	vector_3d<double> target = target_;
+	matrix<double> camera_matrix{ 4,4 };
+
+	vector_3d<double> direction = position - target;
 	direction = normalize(direction);
 
-	vector_3d<float> up{ 0,1,0 };
+	vector_3d<double> up{ 0,1,0 };
 
-	vector_3d<float> right = cross(up, direction);
+	vector_3d<double> right = cross(up, direction);
 	right = normalize(right);
 
 	up = cross(direction, right);
 	up = normalize(up);
 
-	matrix_(0, 0) = right.x();
-	matrix_(0, 1) = right.y();
-	matrix_(0, 2) = right.z();
-	matrix_(0, 3) = -dot(right, position_);
+	camera_matrix(0, 0) = right.x();
+	camera_matrix(0, 1) = right.y();
+	camera_matrix(0, 2) = right.z();
+	camera_matrix(0, 3) = -dot(right, position_);
 
-	matrix_(1, 0) = up.x();
-	matrix_(1, 1) = up.y();
-	matrix_(1, 2) = up.z();
-	matrix_(1, 3) = -dot(up, position_);
+	camera_matrix(1, 0) = up.x();
+	camera_matrix(1, 1) = up.y();
+	camera_matrix(1, 2) = up.z();
+	camera_matrix(1, 3) = -dot(up, position_);
 
-	matrix_(2, 0) = direction.x();
-	matrix_(2, 1) = direction.y();
-	matrix_(2, 2) = direction.z();
-	matrix_(2, 3) = -dot(direction, position_);
+	camera_matrix(2, 0) = direction.x();
+	camera_matrix(2, 1) = direction.y();
+	camera_matrix(2, 2) = direction.z();
+	camera_matrix(2, 3) = -dot(direction, position_);
 
-	matrix_(3, 3) = 1;
+	camera_matrix(3, 3) = 1;
 
-	return matrix_;
+	return camera_matrix;
 }

@@ -1,8 +1,10 @@
 #include "space_ship.h"
 #include "math_class.h"
+#include <complex>
 
 void space_ship::update(delta_time dt)
 {
+	//std::cout << "pitch: " << pitch_ << " yaw: " << yaw_ << " roll: " << roll_ << "\n";
 	if (current_pitch_velocity_ != 0) 
 	{
 		this->pitch(current_pitch_velocity_ * to_seconds(dt));
@@ -20,8 +22,8 @@ void space_ship::update(delta_time dt)
 
 	if (current_velocity_ != 0) 
 	{
-		vector_3d<float> forward = forward_vector();
-		vector_3d<float> new_position = forward * to_seconds(dt) * current_velocity_;
+		vector_3d<double> forward = forward_vector();
+		vector_3d<double> new_position = forward * to_seconds(dt) * current_velocity_;
 
 		for (unsigned i = 0; i < matrix_.get_cols(); i++) 
 		{
@@ -93,33 +95,33 @@ void space_ship::handle_event(SDL_Event& e)
 	}
 }
 
-void space_ship::pitch(float degrees)
+void space_ship::pitch(double degrees)
 {
 	math_class::rotate_x(matrix_, degrees, yaw_, roll_);
 	add_degrees(pitch_, degrees);
 }
 
-void space_ship::yaw(float degrees)
+void space_ship::yaw(double degrees)
 {
 	math_class::rotate_y(matrix_, degrees, pitch_, roll_);
 	add_degrees(yaw_, degrees);
 }
 
-void space_ship::roll(float degrees)
+void space_ship::roll(double degrees)
 {
 	math_class::rotate_z(matrix_, degrees, pitch_, yaw_);
 	add_degrees(roll_, degrees);
 }
 
-vector_3d<float> space_ship::forward_vector()
+vector_3d<double> space_ship::forward_vector()
 {
-	std::vector<vector_3d<float>> vectors = matrix_.get_vectors();
-	vector_3d<float> point_a = vectors.at(0);
-	vector_3d<float> point_b = vectors.at(vectors.size() - 1);
-	vector_3d<float> vector_a = point_b - point_a;
-	vector_3d<float> point_c = vectors.at(5);
-	vector_3d<float> vector_b = point_c - point_a;
-	vector_3d<float> vector_c = cross(vector_b, vector_a);
+	std::vector<vector_3d<double>> vectors = matrix_.get_vectors();
+	vector_3d<double> point_a = vectors.at(0);
+	vector_3d<double> point_b = vectors.at(vectors.size() - 1);
+	vector_3d<double> vector_a = point_b - point_a;
+	vector_3d<double> point_c = vectors.at(5);
+	vector_3d<double> vector_b = point_c - point_a;
+	vector_3d<double> vector_c = cross(vector_a, vector_b);
 
 	return normalize(vector_c);
 }
@@ -131,17 +133,17 @@ void space_ship::reset_rotation()
 	roll(-roll_);
 }
 
-void space_ship::add_degrees(float& action, float degrees)
+void space_ship::add_degrees(double& action, double degrees)
 {
-	if (action + degrees > 360)
+	if (action + degrees > double(360))
 	{
-		const float rest = action + degrees - 360;
+		const double rest = action + degrees - double(360);
 		action = rest;
 	}
-	else if (action + degrees < 0)
+	else if (action + degrees < double(0))
 	{
-		const float rest = action + degrees;
-		action = 360 + rest;
+		const double rest = action + degrees;
+		action = double(360) + rest;
 	}
 	else
 	{

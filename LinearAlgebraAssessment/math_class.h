@@ -10,13 +10,13 @@ class math_class
 	math_class() = default;
 public:
 
-	static vector_3d<float> centroid(const matrix<float>& matrix);
-	static void rotate_x(matrix<float>& m, float degrees, float yaw, float roll);
-	static void rotate_y(matrix<float>& m, float degrees, float pitch, float roll);
-	static void rotate_z(matrix<float>& m, float degrees, float pitch, float yaw);
-	static void scale(float x_factor, float y_factor, float z_factor, matrix<float>& m);
-	static void translate(float x_factor, float y_factor, float z_factor, matrix<float>& m);
-	static void convert_to_3d(matrix<float>& m, camera& c, float screen_width, float screen_height);
+	static vector_3d<double> centroid(const matrix<double>& matrix);
+	static void rotate_x(matrix<double>& m, double degrees, double yaw, double roll);
+	static void rotate_y(matrix<double>& m, double degrees, double pitch, double roll);
+	static void rotate_z(matrix<double>& m, double degrees, double pitch, double yaw);
+	static void scale(double x_factor, double y_factor, double z_factor, matrix<double>& m);
+	static void translate(double x_factor, double y_factor, double z_factor, matrix<double>& m);
+	static matrix<double> convert_to_3d(const matrix<double>& m, const matrix<double>& camera_matrix, double screen_width, double screen_height);
 
 	template <typename T>
 	static constexpr double degrees_to_radian(const T& degrees)
