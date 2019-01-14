@@ -6,6 +6,7 @@
 class space_ship : public base_object
 {
 	matrix<double> matrix_{};
+	bool helpline_ = false;
 
 	double pitch_ = 0.0f;
 	double yaw_ = 0.0f;
@@ -35,5 +36,9 @@ public:
 	void roll(double degrees);
 	vector_3d<double> forward_vector();
 	void reset_rotation();
+
+	bool helpline() const { return helpline_; }
+	void helpline(bool b) { helpline_ = b; }
+	matrix<double> create_helpline();
 };
 

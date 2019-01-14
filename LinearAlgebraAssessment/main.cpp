@@ -26,6 +26,7 @@ void run()
 
 			object_manager object_manager{screen_width, screen_height};
 			object_manager.create_ship();
+			object_manager.create_planet(vector_3d<double>{0, 0, 0});
 			object_manager.create_space_rock(vector_3d<double>{10, 10, 10});
 			object_manager.create_space_rock(vector_3d<double>{20, 20, 20});
 			object_manager.create_space_rock(vector_3d<double>{-10, -10, 10});
@@ -55,20 +56,19 @@ void run()
 				//Clear screen
 				SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 				SDL_RenderClear(renderer);
-				
+
 				//Render objects
 				std::for_each(object_manager.get_objects().begin(), object_manager.get_objects().end(), [&](auto& object)
 				{
 					graphics.draw_matrix(object->get_matrix());
 				});
 
-				//create hardcoded helpline
+				//Helpline
 				auto sp = dynamic_cast<space_ship*>(object_manager.get_objects().at(0).get());
-				vector_3d<double> sp_center = math_class::centroid(sp->get_matrix());
-				vector_3d<double> sp_forward = sp->forward_vector();
-				sp_forward *= 10;
-				vector_3d<double> end_point = sp_center + sp_forward;
-				graphics.draw_line(sp_center, end_point);
+				if(sp->helpline())
+				{
+					graphics.draw_matrix(sp->create_helpline());
+				}
 
 				//Update screen
 				SDL_RenderPresent(renderer);

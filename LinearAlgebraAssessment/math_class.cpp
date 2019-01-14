@@ -85,15 +85,21 @@ void math_class::rotate_z(matrix<double>& m, double degrees, double pitch, doubl
 
 void math_class::scale(double x_factor, double y_factor, double z_factor, matrix<double>& m)
 {
+	vector_3d<double> m_center = centroid(m);
+
+	matrix<double> translation_back = matrix<double>::get_translation_matrix(m_center.x(), m_center.y(), m_center.z());
+	const matrix<double> translation_to_origin = matrix<double>::get_translation_matrix(-m_center.x(), -m_center.y(), -m_center.z());
 	matrix<double> scaling_matrix = matrix<double>::get_scaling_matrix(x_factor, y_factor, z_factor);
 
-	scaling_matrix *= m;
-	m = scaling_matrix;
+	matrix<double> mutation_matrix = translation_back * scaling_matrix * translation_to_origin;
+
+	mutation_matrix *= m;
+	m = mutation_matrix;
 }
 
-void math_class::translate(double x_factor, double y_factor, double z_factor, matrix<double>& m)
+void math_class::translate(double x, double y, double z, matrix<double>& m)
 {
-	matrix<double> translation_matrix = matrix<double>::get_translation_matrix(x_factor, y_factor, z_factor);
+	matrix<double> translation_matrix = matrix<double>::get_translation_matrix(x, y, z);
 
 	translation_matrix *= m;
 	m = translation_matrix;

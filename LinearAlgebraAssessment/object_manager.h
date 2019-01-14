@@ -19,9 +19,10 @@ public:
 
 	void create_ship();
 	void create_space_rock(vector_3d<double> position);
+	void create_planet(vector_3d<double> position);
 	const std::vector<std::unique_ptr<base_object>>& get_objects() const { return objects_; }
 	void update_objects(delta_time dt);
 	void handle_object_events(SDL_Event& e);
-	const camera& get_camera() const { return camera_; }
+	camera& get_camera() { return camera_; }
 };
 

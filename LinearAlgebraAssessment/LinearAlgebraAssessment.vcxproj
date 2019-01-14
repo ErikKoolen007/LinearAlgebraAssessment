@@ -123,6 +123,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math_class.cpp" />
     <ClCompile Include="object_manager.cpp" />
+    <ClCompile Include="planet.cpp" />
     <ClCompile Include="space_ship.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <ClInclude Include="math_class.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="object_manager.h" />
+    <ClInclude Include="planet.h" />
     <ClInclude Include="space_rock.h" />
     <ClInclude Include="space_ship.h" />
     <ClInclude Include="vector_3d.h" />

@@ -3,7 +3,7 @@
 
 void graphics::draw_matrix(const matrix<double>& m) const
 {
-	matrix<double> matrix_3D = math_class::convert_to_3d(m, camera_matrix_, screen_width_, screen_height_);
+	matrix<double> matrix_3D = math_class::convert_to_3d(m, *camera_matrix_, screen_width_, screen_height_);
 
 	SDL_SetRenderDrawColor(renderer_, 255, 0, 0, SDL_ALPHA_OPAQUE);
 

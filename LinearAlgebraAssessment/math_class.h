@@ -15,7 +15,7 @@ public:
 	static void rotate_y(matrix<double>& m, double degrees, double pitch, double roll);
 	static void rotate_z(matrix<double>& m, double degrees, double pitch, double yaw);
 	static void scale(double x_factor, double y_factor, double z_factor, matrix<double>& m);
-	static void translate(double x_factor, double y_factor, double z_factor, matrix<double>& m);
+	static void translate(double x, double y, double z, matrix<double>& m);
 	static matrix<double> convert_to_3d(const matrix<double>& m, const matrix<double>& camera_matrix, double screen_width, double screen_height);
 
 	template <typename T>

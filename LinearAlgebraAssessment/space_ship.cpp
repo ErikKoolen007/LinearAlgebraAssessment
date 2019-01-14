@@ -1,10 +1,8 @@
 #include "space_ship.h"
 #include "math_class.h"
-#include <complex>
 
 void space_ship::update(delta_time dt)
 {
-	//std::cout << "pitch: " << pitch_ << " yaw: " << yaw_ << " roll: " << roll_ << "\n";
 	if (current_pitch_velocity_ != 0) 
 	{
 		this->pitch(current_pitch_velocity_ * to_seconds(dt));
@@ -25,12 +23,7 @@ void space_ship::update(delta_time dt)
 		vector_3d<double> forward = forward_vector();
 		vector_3d<double> new_position = forward * to_seconds(dt) * current_velocity_;
 
-		for (unsigned i = 0; i < matrix_.get_cols(); i++) 
-		{
-			matrix_(0, i) += new_position.x();
-			matrix_(1, i) += new_position.y();
-			matrix_(2, i) += new_position.z();
-		}
+		math_class::translate(new_position.x(), new_position.y(), new_position.z(), matrix_);
 	}
 }
 
@@ -63,6 +56,12 @@ void space_ship::handle_event(SDL_Event& e)
 			break;
 		case SDLK_r:
 			reset_rotation();
+			break;
+		case SDLK_h:
+			if (helpline_)
+				helpline_ = false;
+			else
+				helpline_ = true;
 			break;
 		} 
 	}
@@ -131,6 +130,19 @@ void space_ship::reset_rotation()
 	pitch(-pitch_);
 	yaw(-yaw_);
 	roll(-roll_);
+}
+
+matrix<double> space_ship::create_helpline()
+{
+	vector_3d<double> sp_center = math_class::centroid(matrix_);
+	vector_3d<double> sp_forward = forward_vector();
+	sp_forward *= 10;
+	vector_3d<double> end_point = sp_center + sp_forward;
+
+	matrix<double> matrix_2D{ 4,2 };
+	matrix_2D.init_with_position_vectors(std::vector<vector_3d<double>>{sp_center, end_point});
+
+	return matrix_2D;
 }
 
 void space_ship::add_degrees(double& action, double degrees)
