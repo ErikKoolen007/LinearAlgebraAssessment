@@ -26,9 +26,9 @@ void run()
 
 			object_manager object_manager{screen_width, screen_height};
 			object_manager.create_ship();
-			object_manager.create_planet(vector_3d<double>{0, 0, 0});
-			object_manager.create_space_rock(vector_3d<double>{10, 10, 10});
-			object_manager.create_space_rock(vector_3d<double>{20, 20, 20});
+			object_manager.create_planet(vector_3d<double>{0, -100, -100});
+			object_manager.create_space_rock(vector_3d<double>{10, 10, -10});
+			object_manager.create_space_rock(vector_3d<double>{0, 10, -20});
 			object_manager.create_space_rock(vector_3d<double>{-10, -10, 10});
 
 			graphics graphics{ *renderer, object_manager.get_camera().get_matrix(), screen_width, screen_height };
