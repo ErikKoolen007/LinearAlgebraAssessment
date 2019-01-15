@@ -17,4 +17,5 @@ public:
 	virtual matrix<double>& get_matrix() = 0;
 	virtual void update(delta_time dt){}
 	virtual void handle_event(SDL_Event& e){}
+	virtual std::string name() const = 0;
 };

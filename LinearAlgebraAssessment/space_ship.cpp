@@ -54,9 +54,6 @@ void space_ship::handle_event(SDL_Event& e)
 		case SDLK_a:
 			current_yaw_velocity_ += rotational_velocity_;
 			break;
-		case SDLK_r:
-			reset_rotation();
-			break;
 		case SDLK_h:
 			if (helpline_)
 				helpline_ = false;
@@ -123,13 +120,6 @@ vector_3d<double> space_ship::forward_vector()
 	vector_3d<double> vector_c = cross(vector_a, vector_b);
 
 	return normalize(vector_c);
-}
-
-void space_ship::reset_rotation()
-{
-	pitch(-pitch_);
-	yaw(-yaw_);
-	roll(-roll_);
 }
 
 matrix<double> space_ship::create_helpline()

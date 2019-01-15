@@ -30,15 +30,17 @@ public:
 	matrix<double>& get_matrix() override { return matrix_; }
 	void update(delta_time dt) override;
 	void handle_event(SDL_Event& e) override;
+	std::string name() const override { return "space_ship"; }
 
 	void pitch(double degrees);
 	void yaw(double degrees);
 	void roll(double degrees);
 	vector_3d<double> forward_vector();
-	void reset_rotation();
 
 	bool helpline() const { return helpline_; }
 	void helpline(bool b) { helpline_ = b; }
 	matrix<double> create_helpline();
+
+	double get_velocity() const { return current_velocity_; }
 };
 

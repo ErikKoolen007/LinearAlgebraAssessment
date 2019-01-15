@@ -23,5 +23,6 @@ public:
 	matrix<double>& get_matrix() override { return matrix_; }
 	void update(delta_time dt) override;
 	void handle_event(SDL_Event& e) override {}
+	std::string name() const override { return "planet"; }
 };
 
