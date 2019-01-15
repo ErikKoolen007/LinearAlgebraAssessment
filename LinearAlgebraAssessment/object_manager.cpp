@@ -61,6 +61,23 @@ void object_manager::create_bullet()
 	math_class::translate(ship_loc.x(), ship_loc.y(), ship_loc.z(), objects_.back()->get_matrix());
 }
 
+void object_manager::check_bullet_collision(base_object& bullet)
+{
+	auto bullet_vectors = bullet.get_matrix().get_vectors();
+	auto planet = dynamic_cast<::planet*>(get_objects().at(1).get());
+	auto planet_b_box = planet->get_bounding_box();
+
+	for (vector_3d<double> bullet_vector : bullet_vectors)
+	{
+		if(bullet_vector.x() >= planet_b_box.min_x() && bullet_vector.x() <= planet_b_box.max_x() &&
+			bullet_vector.y() >= planet_b_box.min_y() && bullet_vector.y() <= planet_b_box.max_y() &&
+			bullet_vector.z() >= planet_b_box.min_z() && bullet_vector.z() <= planet_b_box.max_z())
+		{
+			game_won_ = true;
+		}
+	}
+}
+
 void object_manager::update_objects(delta_time dt)
 {
 	camera_.update(dt);
@@ -75,7 +92,10 @@ void object_manager::update_objects(delta_time dt)
 			if (bullet->time_alive() >= max_bullet_existence_time_)
 				it = remove_object(*it->get());
 			else
+			{
+				check_bullet_collision(*it->get());
 				++it;
+			}
 		}
 		else
 			++it;

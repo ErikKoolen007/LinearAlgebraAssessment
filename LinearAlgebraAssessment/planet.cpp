@@ -24,3 +24,16 @@ void planet::update(delta_time dt)
 		t_since_scaling_ = from_seconds(0);
 	}
 }
+
+bounding_box planet::get_bounding_box() 
+{
+	auto vector_list = matrix_.get_vectors();
+	const double min_x = vector_list.at(0).x();
+	const double min_y = vector_list.at(0).y();
+	const double min_z = vector_list.at(0).z();
+	const double max_x = vector_list.at(3).x();
+	const double max_y = vector_list.at(3).y();
+	const double max_z = vector_list.at(3).z();
+
+	return bounding_box{ min_x, min_y, min_z, max_x, max_y, max_z };
+}

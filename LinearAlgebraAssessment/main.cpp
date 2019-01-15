@@ -72,6 +72,12 @@ void run()
 
 				//Update screen
 				SDL_RenderPresent(renderer);
+
+				if(object_manager.game_won())
+				{
+					std::cout << "\n\nYou won the game!!!\n\n";
+					done = SDL_TRUE;
+				}
 			}
 		}
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "base_object.h"
+#include "bounding_box.h"
 
 class planet : public base_object
 {
@@ -24,5 +25,7 @@ public:
 	void update(delta_time dt) override;
 	void handle_event(SDL_Event& e) override {}
 	std::string name() const override { return "planet"; }
+
+	bounding_box get_bounding_box();
 };
 
